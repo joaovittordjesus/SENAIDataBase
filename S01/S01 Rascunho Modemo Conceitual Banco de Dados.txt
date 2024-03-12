@@ -1,0 +1,68 @@
+FORNECEDORES
+id_fornecedor(pk, int, autoincrement)
+razao_social(varchar)
+cnpj(int)
+representante(varchar)
+
+PRODUTOS
+id_produto(pk, int, autoincrement)
+nome(varchar)
+imagem(blob)
+codigo_barras(int)
+quantidade(int)
+data_fabricacao(datetime)
+data_validade(datetime)
+local_fabricacao(varchar)
+valor(money)
+
+CLIENTES
+id_cliente(pk, int, autoincrement)
+nome(varchar)
+cpf(varchar)
+rg(varchar)
+email(varchar)
+telefone(varchar)
+endereco(varchar)
+data_nascimento(datetime)
+local(varchar)
+
+FUNCIONARIOS
+id_funcionario(pk, int, autoincrement)
+nome(varchar)
+data_nascimento(datetime)
+registro_geral(int)
+cfp(int)
+situacao(varchar)
+setor(varchar)
+cargo(varchar)
+salario(double)
+
+PEDIDOS
+id_pedido(pk, int, autoincrememt)
+preco(money)
+desconto(double)
+condicao(varchar)
+vendedor(varchar)
+frete(varchar)
+metodo_pagamento(varchar)
+
+ENTREGAS
+id_entrega(pk, int, autoincrement)
+local_entrega(varchar)
+status_entrega(varchar)
+transportadora(varchar)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

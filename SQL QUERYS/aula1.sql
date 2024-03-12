@@ -1,0 +1,54 @@
+--- CRIANDO TABELAS
+
+CREATE TABLE CLIENTES(
+id_clientes SERIAL PRIMARY KEY,
+telefone VACHAR (15),
+nome VARCHAR (100),
+cpf VARCHAR (14)
+
+)
+
+CREATE TABLE AUTOMOVEIS(
+id_automoveis SERIAL PRIMARY KEY NOT NULL,
+placa VARCHAR (9),
+modelo VARCHAR (50),
+COR CHAR (15),
+ano date,
+marca varchar (15)
+)
+
+CREATE TABLE DEPARTAMENTO(
+id_departamento SERIAL	PRIMARY KEY NOT NULL,
+nome_departamento VARCHAR (100),
+cidade varchar (100)
+)
+
+CREATE TABLE EMPREGADO(
+id_empregado SERIAL PRIMARY KEY NOT NULL, 
+nome_empregado VARCHAR (40) NOT NULL,
+cpf_empregado VARCHAR (15) NOT NULL,
+salario_empregado DECIMAL (7,2),
+id_departamento INT NOT NULL,
+fOREIGN KEY (id_departamento) REFERENCES Departamento
+)
+	
+
+--- ALTERAR COLUNAS DAS TABELAS
+ALTER TABLE CLIENTES(
+ADD	sexo CHAR (1);
+	
+ALTER TABLE clientes
+DROP COLUMN sexo;
+	
+	ALTER TABLE clientes
+	RENAME cpf TO cic;
+)
+
+--- VISUALIZAR RESULTADOS DAS TABELAS 
+
+SELECT*FROM clientes
+
+---APAGAMENTO TABELAS OU BANCO DE  DADOS
+
+DROP TABLE automoveis
+

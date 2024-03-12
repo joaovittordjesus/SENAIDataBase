@@ -1,0 +1,15 @@
+Realizar a modelagem do banco de dados de uma floricultura
+Criar um modelo conceitual e lógico
+Cria o banco de dados no POSTGRES com os tipos de dados com 4 tabelas e 4 campos de dados.
+Enregar todos os arquivos e anexo.
+
+FLORES
+id_flor(serial)
+nome(varchar(100))
+tipo(varchar(100))
+especie(varchar(100))
+quantidade(int(11,2))
+
+
+
+

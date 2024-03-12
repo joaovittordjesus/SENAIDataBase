@@ -1,0 +1,54 @@
+PRODUTOS
+id_produto(pk), (int), (auto)
+nome(varchar)
+observacao(varchar)
+preco(money)
+quantidade(int)
+status(bool)
+tipo(varchar)
+
+PIZZAS
+categoria(varchar)
+massa(varchar)
+sabor(varchar)
+dimensões(varchar)
+peso(varchar)
+ingredientes(varchar)
+disponivel(varchar)
+
+CLIENTES
+id_cliente(pk, int, autoincrement)
+nome(varchar)
+telefone(varchar)
+endereco(varchar)
+email(varchar)
+tipo(varchar)
+
+FUNCIONARIOS
+id_funcionario(pk, int, autoincrement)
+nome(varchar)
+rg(int)
+cfp(int)
+re(varchar)
+situacao(varchar)
+setor(varchar)
+cargo(varchar)
+salario(double)
+data_contratacao(date)
+
+PEDIDOS
+id_pedido(pk, int, autoincrememt)
+vendedor(varchar)
+metodo_pagamento(varchar)
+comprovante(pk, serial)
+id_cliente(fk, references cliente)
+id_funcionario(fk references funcionario)
+status_pedido(varchar)
+
+//Se tiver delivery
+ENTREGAS
+id_entrega(pk, int, autoincrement)
+local_entrega(varchar)
+status_entrega(varchar)
+entregador(varchar)
+veiculo(varchar)
