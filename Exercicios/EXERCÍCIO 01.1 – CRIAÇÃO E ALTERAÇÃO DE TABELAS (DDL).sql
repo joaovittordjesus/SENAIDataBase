@@ -1,8 +1,8 @@
 --Ex 01 Criação e alteração de tabelas DDL--
 CREATE TABLE FORNECEDOR(
-	fcodigo SERIAL PRIMARY KEY,
+	fcodigo SERIAL PRIMARY KEY NOT NULL,
 	fnome varchar(50),
-	status varchar(50) DEFAULT = 'Ativo',
+	status varchar(50) DEFAULT 'Ativo',
 	cidade varchar(60)
 );
 
@@ -14,7 +14,7 @@ SELECT * FROM FORNECEDOR;
 
 --INSERINDO VALORES NA TABELA FORNECEDOR
 INSERT INTO fornecedor (fcodigo,fnome,cidade,status)
-VALUES (DEFAULT, 'Bruno', 'Limeira','')
+VALUES (DEFAULT, 'Bruno', 'Limeira','');
 
 --CRIANDO TABELA PEÇAS--
 CREATE TABLE PECA(
@@ -45,7 +45,7 @@ CREATE TABLE PROJETO(
 	prnome varchar(50),
 	cidade varchar(60),
 	icod int,
-	FOREIGN KEY (icod) REFERENCES INSTITUICAO
+	FOREIGN KEY (icod) REFERENCES INSTITUICAO(icodigo)
 );
 
 --CRIANDO ÍNDICE DA TABELA PROJETO
@@ -58,9 +58,9 @@ CREATE TABLE FORNECIMENTO(
 	pcod int,
 	prcod int,
 	quantidade int,
-	FOREIGN KEY (fcod) REFERENCES FORNECEDOR,
-	FOREIGN KEY (pcod) REFERENCES PECA,
-	FOREIGN KEY (prcod) REFERENCES PROJETO
+	FOREIGN KEY (fcod) REFERENCES FORNECEDOR(fcodigo),
+	FOREIGN KEY (pcod) REFERENCES PECA(pcodigo),
+	FOREIGN KEY (prcod) REFERENCES PROJETO(prcod)
 );
 
 
