@@ -51,3 +51,5 @@ VALUES
     (4, 'Diego Almeida', 'D4', 'Analista', 5200.00),
     (5, 'Juliana Silva', 'E5', 'Desenvolvedor', 4800.00);
 
+--
+
