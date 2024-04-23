@@ -2,25 +2,21 @@
 include 'functions.php';
 $pdo = pdo_connect_pgsql();
 $msg = '';
-// Verifica se os dados POST não estão vazios
+
 if (!empty($_POST)) {
-    // Se os dados POST não estiverem vazios, insere um novo registro
-    // Configura as variáveis que serão inserid_contatoas. Devemos verificar se as variáveis POST existem e, se não existirem, podemos atribuir um valor padrão a elas.
-    $id_contato = isset($_POST['id_contato']) && !empty($_POST['id_contato']) && $_POST['id_contato'] != 'auto' ? $_POST['id_contato'] : NULL;
-    // Verifica se a variável POST "nome" existe, se não existir, atribui o valor padrão para vazio, basicamente o mesmo para todas as variáveis
+    $id_contato = isset($_POST['id_contato']) ? $_POST['id_contato'] : NULL;
     $nome = isset($_POST['nome']) ? $_POST['nome'] : '';
     $email = isset($_POST['email']) ? $_POST['email'] : '';
     $cel = isset($_POST['cel']) ? $_POST['cel'] : '';
     $pizza = isset($_POST['pizza']) ? $_POST['pizza'] : '';
     $cadastro = isset($_POST['cadastro']) ? $_POST['cadastro'] : date('Y-m-d H:i:s');
-    // Insere um novo registro na tabela contacts
+
     $stmt = $pdo->prepare('INSERT INTO contatos (id_contato, nome, email, cel, pizza, cadastro) VALUES (?, ?, ?, ?, ?, ?)');
     $stmt->execute([$id_contato, $nome, $email, $cel, $pizza, $cadastro]);
-    // Mensagem de saída
+
     $msg = 'Pedido Realizado com Sucesso!';
 }
 ?>
-
 
 <?= template_header('Cadastro de Pedidos') ?>
 
@@ -37,7 +33,6 @@ if (!empty($_POST)) {
         <input type="text" name="pizza" placeholder="Pizza" id="pizza">
         <label for="cadastro">Data do Pedido</label>
         <input type="datetime-local" name="cadastro" value="<?= date('Y-m-d\TH:i') ?>" id="cadastro">
-
         <input type="submit" value="Criar">
     </form>
     <?php if ($msg) : ?>
