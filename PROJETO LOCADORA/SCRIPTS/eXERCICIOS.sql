@@ -410,6 +410,23 @@ SELECT PAGAMENTO.valor, CLIENTE.nome
 FROM PAGAMENTO
 INNER JOIN CLIENTE ON PAGAMENTO
 
+--INSERTS NOVOS
+-- AGENCIA
+INSERT INTO AGENCIA (email, telefone, endereco, nome)
+VALUES
+    ('agencia11@example.com', '(11) 1234-5678', 'Av. Paulista, 1001 - São Paulo, SP', 'Agência Sul'),
+    ('agencia12@example.com', '(21) 9876-5432', 'Av. Rio Branco, 2002 - Rio de Janeiro, RJ', 'Agência Norte'),
+    ('agencia13@example.com', '(31) 1111-2222', 'Av. Afonso Pena, 3003 - Belo Horizonte, MG', 'Agência Centro-Sul'),
+    ('agencia14@example.com', '(51) 9999-8888', 'Av. Borges de Medeiros, 4004 - Porto Alegre, RS', 'Agência Leste'),
+    ('agencia15@example.com', '(71) 7777-8888', 'Av. Tancredo Neves, 5005 - Salvador, BA', 'Agência Oeste'),
+    ('agencia16@example.com', '(41) 3333-4444', 'Av. Sete de Setembro, 6006 - Curitiba, PR', 'Agência Sul'),
+    ('agencia17@example.com', '(81) 6666-5555', 'Av. Boa Viagem, 7007 - Recife, PE', 'Agência Leste'),
+    ('agencia18@example.com', '(85) 2222-3333', 'Av. Beira Mar, 8008 - Fortaleza, CE', 'Agência Norte'),
+    ('agencia19@example.com', '(92) 5555-6666', 'Av. Djalma Batista, 9009 - Manaus, AM', 'Agência Sul'),
+    ('agencia20@example.com', '(61) 4444-5555', 'Esplanada dos Ministérios, Bloco C - Brasília, DF', 'Agência Central');
+
+
+
 
 
  
