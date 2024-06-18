@@ -258,6 +258,9 @@ VALUES
     (9, 'YZA3456', 'Nissan Versa', '2021-01-01', 'C', 'DISPONIVEL', 9, 130.00),
     (10, 'BCD7890', 'Kia Cerato', '2018-01-01', 'C', 'DISPONIVEL', 10, 140.00);
 
+ALTER TABLE CARRO
+DROP COLUMN id_locacao;
+
 -- FEEDBACK
 INSERT INTO FEEDBACK (comentario, avaliacao, id_cliente)
 VALUES
@@ -424,21 +427,4 @@ VALUES
     ('agencia18@example.com', '(85) 2222-3333', 'Av. Beira Mar, 8008 - Fortaleza, CE', 'Agência Norte'),
     ('agencia19@example.com', '(92) 5555-6666', 'Av. Djalma Batista, 9009 - Manaus, AM', 'Agência Sul'),
     ('agencia20@example.com', '(61) 4444-5555', 'Esplanada dos Ministérios, Bloco C - Brasília, DF', 'Agência Central');
-
-
-
-
-
- 
-
-
-
-
-
-
-
-
-
-
-
 

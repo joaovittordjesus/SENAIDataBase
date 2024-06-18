@@ -42,12 +42,14 @@ function template_header($title) {
                 <h1>Locadora AutoMaster</h1>
             </div>
             <nav>
-                <ul>
-                    <!-- Links para as diferentes páginas do site -->
-                    <li><a href="index.php">Home</a></li>
-                    <li><a href="create.php">Cadastrar</a></li>
-                    <li><a href="read.php">Visualizar</a></li>
-                </ul>
+            <ul>
+                <!-- Links para as diferentes páginas do site -->
+                <li><a href="index.php">Home</a></li>
+                <li><a href="create.php">Cadastrar</a></li>
+                <li><a href="read.php">Visualizar<br> Carros<br> Disponíveis</a></li>
+                <li><a href="read2.php">Visualizar<br> Carros<br> Alugados</a></li>
+                <li><a href="filtros.php">Filtros</a></li>
+            </ul>
             </nav>
         </div>
     </header>

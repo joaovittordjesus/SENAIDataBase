@@ -5,47 +5,89 @@ include 'functions.php';
 // Estabelece uma conexão com o banco de dados PostgreSQL.
 $pdo = pdo_connect_pgsql();
 
-// Define a variável $pagina como o valor da query string 'pagina' se estiver definida, caso contrário, define como 1.
-$pagina = isset($_GET['pagina']) ? (int)$_GET['pagina'] : 1;
+// Define os filtros padrão como vazio ou não definido.
+$numero_agencia = '';
+$placa = '';
+$modelo = '';
+$ano = '';
+$tipo = '';
 
-// Define o limite de registros por página.
-$limite = 10;
+// Verifica se o formulário de filtro foi submetido.
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Obtém os dados do formulário de filtro, se definidos.
+    $numero_agencia = isset($_POST['numero_agencia']) ? $_POST['numero_agencia'] : '';
+    $placa = isset($_POST['placa']) ? $_POST['placa'] : '';
+    $modelo = isset($_POST['modelo']) ? $_POST['modelo'] : '';
+    $ano = isset($_POST['ano']) ? $_POST['ano'] : '';
+    $tipo = isset($_POST['tipo']) ? $_POST['tipo'] : '';
 
-// Calcula o offset com base na página atual e no limite de registros por página.
-$offset = ($pagina - 1) * $limite;
+    // Prepara a query SQL base com filtros opcionais.
+    $sql = 'SELECT * FROM carro WHERE disponibilidade = \'DISPONIVEL\'';
 
-// Consulta o número total de carros no banco de dados e armazena na variável $total_carros.
-$total_carros = $pdo->query('SELECT COUNT(*) FROM carro')->fetchColumn();
+    if (!empty($numero_agencia)) {
+        $sql .= " AND numero_agencia = '$numero_agencia'";
+    }
+    if (!empty($placa)) {
+        $sql .= " AND placa LIKE '%$placa%'";
+    }
+    if (!empty($modelo)) {
+        $sql .= " AND modelo LIKE '%$modelo%'";
+    }
+    if (!empty($ano)) {
+        $sql .= " AND ano = '$ano'";
+    }
+    if (!empty($tipo)) {
+        $sql .= " AND tipo = '$tipo'";
+    }
 
-// Calcula o número total de páginas com base no total de carros e no limite de registros por página.
-$total_paginas = ceil($total_carros / $limite);
-
-// Prepara e executa uma consulta SQL para selecionar os carros com ordenação por ano, limitando o resultado e definindo um offset.
-$stmt = $pdo->prepare('SELECT * FROM carro ORDER BY ano DESC LIMIT :limite OFFSET :offset');
-$stmt->bindValue(':limite', $limite, PDO::PARAM_INT);
-$stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
-$stmt->execute();
-
-// Armazena os resultados da consulta em um array associativo na variável $carros.
-$carros = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    // Prepara e executa a consulta SQL com os filtros.
+    $stmt = $pdo->query($sql);
+    $carros = $stmt->fetchAll(PDO::FETCH_ASSOC);
+} else {
+    // Consulta padrão sem filtros aplicados.
+    $stmt = $pdo->query('SELECT * FROM carro WHERE disponibilidade = \'DISPONIVEL\' ORDER BY ano DESC');
+    $carros = $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
 ?>
 
 <?= template_header('Visualizar') ?>
 
 <div class="content read">
     <h2>Carros Disponíveis</h2>
+
+    <!-- Formulário para filtros -->
+    <form method="post" action="read.php">
+        <label for="numero_agencia">Número da Agência:</label>
+        <input type="text" name="numero_agencia" id="numero_agencia" value="<?= htmlspecialchars($numero_agencia) ?>"><br>
+
+        <label for="placa">Placa:</label>
+        <input type="text" name="placa" id="placa" value="<?= htmlspecialchars($placa) ?>"><br>
+
+        <label for="modelo">Modelo:</label>
+        <input type="text" name="modelo" id="modelo" value="<?= htmlspecialchars($modelo) ?>"><br>
+
+        <label for="ano">Ano:</label>
+        <input type="text" name="ano" id="ano" value="<?= htmlspecialchars($ano) ?>"><br>
+
+        <label for="tipo">Tipo:</label>
+        <input type="text" name="tipo" id="tipo" value="<?= htmlspecialchars($tipo) ?>"><br>
+
+        <input type="submit" value="Filtrar">
+    </form>
+
+    <!-- Tabela de carros -->
     <table>
         <thead>
             <tr>
-                <td>#</td>
-                <td>Número da Agência</td>
-                <td>Placa</td>
-                <td>Modelo</td>
-                <td>Ano</td>
-                <td>Tipo</td>
-                <td>Disponibilidade</td>
-                <td>Valor Total Aluguel Hora</td>
-                <td></td>
+                <th>#</th>
+                <th>Número da Agência</th>
+                <th>Placa</th>
+                <th>Modelo</th>
+                <th>Ano</th>
+                <th>Tipo</th>
+                <th>Disponibilidade</th>
+                <th>Valor Total Aluguel Hora</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -69,11 +111,6 @@ $carros = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <?php endforeach; ?>
         </tbody>
     </table>
-    <div class="pagination">
-        <?php for ($i = 1; $i <= $total_paginas; $i++) : ?>
-            <a href="read.php?pagina=<?= $i ?>"><?= $i ?></a>
-        <?php endfor; ?>
-    </div>
 </div>
 
 <?= template_footer() ?>
